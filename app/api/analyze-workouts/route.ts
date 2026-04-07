@@ -1,9 +1,4 @@
 import { streamText } from 'ai'
-import { createGroq } from '@ai-sdk/groq'
-
-const groq = createGroq({
-  apiKey: process.env.GROQ_API_KEY,
-})
 
 export async function POST(req: Request) {
   try {
@@ -40,7 +35,7 @@ ${userMessage || "What insights do you have about my workouts? How can I improve
 Please analyze these workouts and provide personalized recommendations.`
 
     const result = streamText({
-      model: groq('mixtral-8x7b-32768'),
+      model: 'openai/gpt-4o-mini',
       system: systemPrompt,
       messages: [
         {
