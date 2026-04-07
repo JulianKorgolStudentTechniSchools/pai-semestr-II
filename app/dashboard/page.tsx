@@ -8,7 +8,6 @@ import { WorkoutForm } from '@/components/workout-form'
 import { WorkoutHistory } from '@/components/workout-history'
 import { ProgressCharts } from '@/components/progress-charts'
 import { RestTimer } from '@/components/rest-timer'
-import { AIAnalysis } from '@/components/ai-analysis'
 import { Button } from '@/components/ui/button'
 import { WorkoutInput } from '@/lib/types'
 
@@ -17,7 +16,7 @@ export default function DashboardPage() {
   const { user, logout, isLoading: authLoading, isAuthenticated } = useAuth()
   const { workouts, addWorkout, deleteWorkout, isLoading: workoutsLoading } = useWorkouts()
   const [showForm, setShowForm] = useState(false)
-  const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'charts' | 'coach'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'charts'>('overview')
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -68,7 +67,7 @@ export default function DashboardPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Tabs */}
         <div className="flex gap-1 mb-8 border-b border-border overflow-x-auto">
-          {(['overview', 'history', 'charts', 'coach'] as const).map((tab) => (
+          {(['overview', 'history', 'charts'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -81,7 +80,6 @@ export default function DashboardPage() {
               {tab === 'overview' && '📊 Overview'}
               {tab === 'history' && '📝 History'}
               {tab === 'charts' && '📈 Progress'}
-              {tab === 'coach' && '🤖 AI Coach'}
             </button>
           ))}
         </div>
@@ -152,13 +150,6 @@ export default function DashboardPage() {
         {activeTab === 'charts' && (
           <div className="bg-card border border-border p-6 rounded-xl shadow-sm">
             <ProgressCharts workouts={workouts} />
-          </div>
-        )}
-
-        {/* AI Coach Tab */}
-        {activeTab === 'coach' && (
-          <div className="bg-card border border-border p-6 rounded-xl shadow-sm">
-            <AIAnalysis workouts={workouts} />
           </div>
         )}
       </main>
