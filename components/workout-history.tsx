@@ -11,8 +11,8 @@ interface WorkoutHistoryProps {
 export function WorkoutHistory({ workouts, onDelete }: WorkoutHistoryProps) {
   if (workouts.length === 0) {
     return (
-      <div className="bg-white rounded-lg p-8 text-center border border-gray-200">
-        <p className="text-gray-500">No workouts logged yet. Start by adding your first workout!</p>
+      <div className="bg-gradient-to-br from-muted/30 to-muted/50 rounded-xl p-12 text-center border border-border">
+        <p className="text-muted-foreground text-lg">📝 No workouts logged yet. Start by adding your first workout!</p>
       </div>
     )
   }
@@ -23,34 +23,34 @@ export function WorkoutHistory({ workouts, onDelete }: WorkoutHistoryProps) {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-bold">Workout History</h2>
+      <h2 className="text-2xl font-bold text-foreground">Workout History</h2>
       <div className="space-y-3">
         {sortedWorkouts.map((workout) => (
-          <div key={workout.id} className="bg-white p-4 rounded-lg border border-gray-200">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="font-semibold text-lg">{workout.exerciseName}</h3>
-                <p className="text-sm text-gray-600">
-                  {new Date(workout.date).toLocaleDateString('en-US', {
+          <div key={workout.id} className="bg-card p-5 rounded-xl border border-border hover:shadow-md transition duration-200">
+            <div className="flex justify-between items-start gap-4">
+              <div className="flex-1">
+                <h3 className="font-bold text-lg text-foreground">{workout.exerciseName}</h3>
+                <p className="text-xs text-muted-foreground font-medium mt-1">
+                  📅 {new Date(workout.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
                   })}
                 </p>
                 {workout.notes && (
-                  <p className="text-sm text-gray-700 mt-2">{workout.notes}</p>
+                  <p className="text-sm text-foreground/70 mt-3 italic">"{workout.notes}"</p>
                 )}
-                <div className="mt-2 space-y-1">
+                <div className="mt-4 space-y-2 bg-muted/30 p-3 rounded-lg">
                   {workout.sets.map((set) => (
-                    <p key={set.id} className="text-sm text-gray-600">
-                      Set {set.setNumber}: {set.reps} reps × {set.weight}kg
+                    <p key={set.id} className="text-sm font-medium text-foreground">
+                      💪 Set {set.setNumber}: <span className="text-accent">{set.reps} reps</span> × <span className="text-primary">{set.weight}kg</span>
                     </p>
                   ))}
                 </div>
               </div>
               <Button
                 onClick={() => onDelete(workout.id)}
-                className="bg-red-100 hover:bg-red-200 text-red-700 text-sm"
+                className="bg-destructive/10 hover:bg-destructive/20 text-destructive font-medium flex-shrink-0"
               >
                 Delete
               </Button>

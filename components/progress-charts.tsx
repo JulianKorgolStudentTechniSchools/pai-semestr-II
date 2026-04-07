@@ -10,8 +10,8 @@ interface ProgressChartsProps {
 export function ProgressCharts({ workouts }: ProgressChartsProps) {
   if (workouts.length === 0) {
     return (
-      <div className="bg-white rounded-lg p-8 text-center border border-gray-200">
-        <p className="text-gray-500">No data to display yet. Log your first workout!</p>
+      <div className="bg-gradient-to-br from-muted/30 to-muted/50 rounded-xl p-12 text-center border border-border">
+        <p className="text-muted-foreground text-lg">📊 No data to display yet. Log your first workout!</p>
       </div>
     )
   }
@@ -47,49 +47,69 @@ export function ProgressCharts({ workouts }: ProgressChartsProps) {
     data: data.sort((a, b) => a.timestamp - b.timestamp).slice(-10),
   }))
 
+  // Get theme colors
+  const primaryColor = 'rgb(85, 102, 204)' // primary
+  const accentColor = 'rgb(204, 170, 66)' // accent/secondary
+  const chartColor1 = 'rgb(85, 102, 204)' // chart-1
+  const chartColor2 = 'rgb(204, 170, 66)' // chart-2
+
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-bold">Progress Charts</h2>
+      <h2 className="text-2xl font-bold text-foreground">Progress Charts</h2>
 
       {exercises.map(({ name, data }) => (
         <div key={name} className="space-y-4">
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
-            <h3 className="font-semibold mb-4">{name} - Weight Progress</h3>
+          <div className="bg-card rounded-xl p-6 border border-border shadow-sm">
+            <h3 className="font-bold text-lg text-foreground mb-6">📈 {name} - Weight Progress</h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                <XAxis dataKey="date" stroke="var(--muted-foreground)" />
+                <YAxis stroke="var(--muted-foreground)" />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: 'var(--card)',
+                    border: '1px solid var(--border)',
+                    borderRadius: '8px'
+                  }}
+                />
                 <Legend />
                 <Line
                   type="monotone"
                   dataKey="avgWeight"
-                  stroke="#4f46e5"
+                  stroke={chartColor1}
                   name="Avg Weight (kg)"
                   strokeWidth={2}
+                  dot={{ fill: chartColor1 }}
                 />
                 <Line
                   type="monotone"
                   dataKey="maxWeight"
-                  stroke="#10b981"
+                  stroke={chartColor2}
                   name="Max Weight (kg)"
                   strokeWidth={2}
+                  dot={{ fill: chartColor2 }}
                 />
               </LineChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
-            <h3 className="font-semibold mb-4">{name} - Total Reps</h3>
+          <div className="bg-card rounded-xl p-6 border border-border shadow-sm">
+            <h3 className="font-bold text-lg text-foreground mb-6">📊 {name} - Total Reps</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                <XAxis dataKey="date" stroke="var(--muted-foreground)" />
+                <YAxis stroke="var(--muted-foreground)" />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: 'var(--card)',
+                    border: '1px solid var(--border)',
+                    borderRadius: '8px'
+                  }}
+                />
                 <Legend />
-                <Bar dataKey="totalReps" fill="#f59e0b" name="Total Reps" />
+                <Bar dataKey="totalReps" fill={accentColor} name="Total Reps" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

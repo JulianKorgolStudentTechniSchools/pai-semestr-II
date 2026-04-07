@@ -61,27 +61,27 @@ export function RestTimer({ initialSeconds = 60, onComplete }: RestTimerProps) {
   const displaySeconds = seconds % 60
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg p-6 text-center border border-blue-200">
-      <h3 className="text-lg font-semibold mb-4 text-gray-700">Rest Timer</h3>
-      <div className="text-5xl font-bold text-indigo-600 mb-6 font-mono">
+    <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-8 text-center border border-primary/20">
+      <h3 className="text-lg font-bold text-foreground mb-6">⏱️ Rest Timer</h3>
+      <div className="text-6xl font-bold text-primary mb-8 font-mono tracking-wider">
         {String(minutes).padStart(2, '0')}:{String(displaySeconds).padStart(2, '0')}
       </div>
       <div className="flex gap-3 justify-center">
         <Button
           onClick={toggleTimer}
-          className={`${
+          className={`flex-1 font-semibold py-2.5 transition duration-200 ${
             isRunning
-              ? 'bg-red-500 hover:bg-red-600'
-              : 'bg-green-500 hover:bg-green-600'
-          } text-white font-semibold`}
+              ? 'bg-destructive hover:bg-destructive/90 text-destructive-foreground'
+              : 'bg-primary hover:bg-primary/90 text-primary-foreground'
+          }`}
         >
-          {isRunning ? 'Pause' : 'Start'}
+          {isRunning ? '⏸ Pause' : '▶ Start'}
         </Button>
         <Button
           onClick={reset}
-          className="bg-gray-400 hover:bg-gray-500 text-white font-semibold"
+          className="flex-1 bg-muted hover:bg-muted/80 text-muted-foreground font-semibold py-2.5"
         >
-          Reset
+          🔄 Reset
         </Button>
       </div>
     </div>

@@ -37,16 +37,21 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+      <div className="bg-card border border-border rounded-2xl shadow-2xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Workout Logger</h1>
-          <p className="text-gray-600 mt-2">Track your fitness journey with AI insights</p>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
+            <svg className="w-8 h-8 text-primary-foreground" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+            </svg>
+          </div>
+          <h1 className="text-4xl font-bold text-foreground">Workout Logger</h1>
+          <p className="text-muted-foreground mt-2 text-base">Track your fitness journey with AI insights</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <Field>
-            <FieldLabel>Email</FieldLabel>
+            <FieldLabel>Email Address</FieldLabel>
             <Input
               type="email"
               placeholder="your@email.com"
@@ -56,11 +61,12 @@ export default function LoginPage() {
                 setError('')
               }}
               required
+              className="border-border"
             />
           </Field>
 
           <Field>
-            <FieldLabel>Name</FieldLabel>
+            <FieldLabel>Full Name</FieldLabel>
             <Input
               type="text"
               placeholder="Your Name"
@@ -70,26 +76,27 @@ export default function LoginPage() {
                 setError('')
               }}
               required
+              className="border-border"
             />
           </Field>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            <div className="bg-destructive/10 border border-destructive text-destructive px-4 py-3 rounded-lg text-sm font-medium">
               {error}
             </div>
           )}
 
           <Button
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2.5 rounded-lg transition duration-200"
           >
             Sign In
           </Button>
         </form>
 
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <p className="text-sm text-gray-600 text-center">
-            Demo mode: Use any email and name to login
+        <div className="mt-8 pt-6 border-t border-border">
+          <p className="text-xs text-muted-foreground text-center">
+            Demo mode: Use any email and name to login. Your data will be stored locally.
           </p>
         </div>
       </div>
