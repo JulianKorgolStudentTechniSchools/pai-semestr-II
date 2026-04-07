@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth-context'
 import { Button } from '@/components/ui/button'
@@ -14,10 +14,11 @@ export default function LoginPage() {
   const [name, setName] = useState('')
   const [error, setError] = useState('')
 
-  if (isAuthenticated) {
-    router.push('/dashboard')
-    return null
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push('/dashboard')
+    }
+  }, [isAuthenticated, router])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
